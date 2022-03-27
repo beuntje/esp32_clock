@@ -35,11 +35,11 @@ int chars[16][7] = {
 void setup_leds() {
   strip.begin();           // INITIALIZE NeoPixel strip object (REQUIRED)
   strip.show();            // Turn OFF all pixels ASAP
-  strip.setBrightness(50); // Set BRIGHTNESS to about 1/5 (max = 255)
+  strip.setBrightness(50); // Set default BRIGHTNESS to about 1/5 (max = 255)
 }
 
 void led_show(int nummer, int hue_numbers, int hue_dot) {
-  uint32_t color = strip.gamma32(strip.ColorHSV(hue_numbers)); // hue -> RGB
+  uint32_t color = strip.gamma32(strip.ColorHSV(hue_numbers, saturation, brightness)); 
   strip.clear();
   for (int eight = 0; eight < 4; eight++) {
     int value = int(nummer / pow(10, 3 - eight)) % 10;
@@ -50,7 +50,7 @@ void led_show(int nummer, int hue_numbers, int hue_dot) {
     }
   }  
    
-  color = strip.gamma32(strip.ColorHSV(hue_dot)); 
+  color = strip.gamma32(strip.ColorHSV(hue_dot, 255, brightness)); 
   strip.setPixelColor(eights[4][0], color);
   strip.show();
 }

@@ -5,10 +5,11 @@ void setup_time() {
   configTzTime(timezone, ntpServer);
 }
 
-int timeval() {
+float timeval() {
   struct tm timeinfo;
   if (!getLocalTime(&timeinfo)) {
     return 0;
   }
-  return timeinfo.tm_hour * 100 + timeinfo.tm_min;
+ 
+  return timeinfo.tm_hour * 100 + timeinfo.tm_min + ((float)timeinfo.tm_sec/100);
 }
